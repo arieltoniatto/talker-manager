@@ -1,10 +1,10 @@
 const express = require('express');
-const { readFile, getById } = require('../utils/readAndWriteFiles');
+const { readJson, getById, writeFile } = require('../utils/readAndWriteFiles');
 
 const route = express.Router();
 
 route.get('/', async (req, res) => {
-    const content = await readFile();
+    const content = await readJson();
     res.status(200).json(content);
 });
 
