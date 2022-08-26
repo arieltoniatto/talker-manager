@@ -1,10 +1,12 @@
 const express = require('express');
 const crypto = require('crypto');
+
 const { writeFile } = require('../utils/readAndWriteFiles');
+const insertUserValidation = require('../middlewares/insertUserValidadtion');
 
 const route = express.Router();
 
-route.post('/', async (req, res) => {
+route.post('/', insertUserValidation, async (req, res) => {
     const userLogin = req.body;
 
     const newUser = {

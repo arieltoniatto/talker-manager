@@ -1,5 +1,5 @@
 const express = require('express');
-const { readJson, getById, writeFile } = require('../utils/readAndWriteFiles');
+const { readJson, getById } = require('../utils/readAndWriteFiles');
 
 const route = express.Router();
 
