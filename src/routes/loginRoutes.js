@@ -2,11 +2,15 @@ const express = require('express');
 const crypto = require('crypto');
 
 const { writeFile } = require('../utils/readAndWriteFiles');
-const insertUserValidation = require('../middlewares/insertUserValidadtion');
+const { insertEmailValidation,
+    insertPasswordValidation } = require('../middlewares/insertUserValidadtion');
+const { emailValidadtion, passwordValidation } = require('../middlewares/userFieldsValidation');
 
 const route = express.Router();
 
-route.post('/', insertUserValidation, async (req, res) => {
+route.post('/',
+    insertEmailValidation, insertPasswordValidation, emailValidadtion, passwordValidation,
+    async (req, res) => {
     const userLogin = req.body;
 
     const newUser = {
