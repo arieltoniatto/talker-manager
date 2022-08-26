@@ -9,14 +9,20 @@ const readJson = async () => {
 
 const writeFile = async (post) => {
     try {
-        const arrFile = readJson();
+        const arrFile = await readJson();
+        // console.log(arrFile);
         arrFile.push(post);
 
-        const content = await fs.writeFile(filename, JSON.stringify(arrFile));
-        return content;
+        // const content = 
+        await fs.writeFile(filename, JSON.stringify(arrFile));
+        // return content;
     } catch (error) {
-        return null;
+        console.log(error);
     }
+};
+
+const clearJson = async () => {
+    await fs.writeFile(filename, JSON.stringify([]));
 };
 
 const getById = async (personId) => {
@@ -29,4 +35,5 @@ module.exports = {
     readJson,
     getById,
     writeFile,
+    clearJson,
 };
