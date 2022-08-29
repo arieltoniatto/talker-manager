@@ -1,4 +1,3 @@
-// const e = require('express');
 const fs = require('fs/promises');
 
 const filename = 'src/talker.json';
@@ -11,25 +10,20 @@ const readJson = async () => {
 const writeFile = async (post) => {
     try {
         const arrFile = await readJson();
+        const newID = arrFile.length + 1;
+        const newTalker = { id: newID, ...post };
+        arrFile.push(newTalker);
 
-        arrFile.push(post);
-
-        // const content = 
         await fs.writeFile(filename, JSON.stringify(arrFile));
-        // return content;
+        return newTalker;
     } catch (error) {
         console.log(error);
     }
 };
 
-const clearJson = async () => {
-    await fs.writeFile(filename, JSON.stringify([]));
-};
-
 const getById = async (personId) => {
     const allTalkers = await readJson();
     const talker = allTalkers.filter(({ id }) => id === personId);
-    // console.log(talker[0]);
     return talker[0];
 };
 
@@ -41,50 +35,31 @@ const changeTalker = async (data, id) => {
     await fs.writeFile(filename, JSON.stringify(rmvTalker));
     return editedTalker;
 };
-// try {
-//     const allTalkers = await readJson();
-
-//     let alteredTalker;
-//     for (let i = 0; i < allTalkers.length; i += 1) {
-//         if (allTalkers[i].id === Number(ids)) {
-//             allTalkers[i].name = name,
-//             allTalkers[i].age = age,
-//             allTalkers[i].talk = talk,
-//             alteredTalker = allTalkers[i],
-//         }
-//         await fs.writeFile(filename, JSON.stringify(alteredTalker));
-//         return allTalkers;
-//     }
-    
-// } catch (error) {
-//     console.log(error);
-//     return null;
-// }
 
 const removeTalker = async (talkerId) => {
     const allTalkers = await readJson();
-    // console.log(allTalkers);
+
     const talker = allTalkers.filter(({ id }) => id !== talkerId);
-    // console.log(talker);
+
     await fs.writeFile(filename, JSON.stringify(talker));
-    // await writeFile(talker);
 };
 
-const searchByTerms = async (query) => {
-    const allTalkers = await readJson();
-    if (!query) {
-        return [];
-    }
-    // console.log(allTalkers);
-    return Object.values(allTalkers[0]).filter((term) => term.includes(query));
-};
+// const searchByTerms = async (query) => {
+//     const allTalkers = await readJson();
+
+//     const filterQuery = allTalkers.filter(
+//         ({ name }) => name.toLowerCase().includes(query.toLowerCase()),
+//         );
+//     if (!filterQuery) return [];
+
+//     return filterQuery;
+// };
 
 module.exports = {
     readJson,
     getById,
     writeFile,
-    clearJson,
     changeTalker,
     removeTalker,
-    searchByTerms,
+    // searchByTerms,
 };

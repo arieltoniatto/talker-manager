@@ -1,7 +1,7 @@
 const express = require('express');
 const crypto = require('crypto');
 
-const { writeFile } = require('../utils/readAndWriteFiles');
+// const { writeFile } = require('../utils/readAndWriteFiles');
 const { insertEmailValidation,
     insertPasswordValidation } = require('../middlewares/fieldsValidadtion');
 const { emailValidadtion,
@@ -12,13 +12,13 @@ const route = express.Router();
 route.post('/',
     insertEmailValidation, insertPasswordValidation, emailValidadtion, passwordValidation,
     async (req, res) => {
-    const userLogin = req.body;
+    // const userLogin = req.body;
 
-    const newUser = {
-        ...userLogin,
-    };
+    // const newUser = {
+    //     ...userLogin,
+    // };
 
-    await writeFile(newUser);
+    // await writeFile(newUser);
 
     const token = crypto.randomBytes(256).toString('hex').substring(0, 16);
 
