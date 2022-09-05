@@ -20,7 +20,7 @@ route.post('/',
 
     // await writeFile(newUser);
 
-    const token = crypto.randomBytes(256).toString('hex').substring(0, 16);
+    const token = crypto.randomBytes(8).toString('hex');
 
     res.status(200).json({ token });
 });
